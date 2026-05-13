@@ -50,12 +50,12 @@ export const af: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "Maak navigasie toe",
     closeModelTools: "Maak model en gereedskap toe",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "Aktiewe Sessies:",
     gatewayStatusLabel: "Gateway-status:",
@@ -120,8 +120,8 @@ export const af: Translations = {
     starting: "Begin",
     startedInBackground: "Begin in agtergrond — kyk logs vir vordering",
     stopped: "Gestop",
-    updateHermes: "Werk Hermes op",
-    updatingHermes: "Besig om Hermes op te werk…",
+    updateHermes: "Werk AGE op",
+    updatingHermes: "Besig om AGE op te werk…",
     waitingForOutput: "Wag vir uitset…",
   },
 
@@ -266,7 +266,7 @@ export const af: Translations = {
     enableRuntime: "Aktiveer",
     forceReinstall: "Forseer herinstallasie (skrap eers bestaande gids)",
     headline:
-      "Ontdek, installeer, aktiveer en werk Hermes-inproppe op (`hermes plugins` ekwivalent).",
+      "Ontdek, installeer, aktiveer en werk AGE plugins op (`age plugins` ekwivalent).",
     identifierLabel: "Git-URL of owner/repo",
     inactive: "onaktief",
     installBtn: "Installeer vanaf Git",
@@ -530,7 +530,7 @@ export const af: Translations = {
         "Deel op X maak 'n vooraf-ingevulde plasing in 'n nuwe oortjie oop. Klik eers op Kopieer beeld as jy die 1200×630-kenteken aangeheg wil hê — X laat jou dit direk in die tweet-skrywer plak. Laai PNG af stoor die lêer om enige plek te gebruik.",
       clipboard_unsupported:
         "Beeldkopiëring na knipbord word nie in hierdie blaaier ondersteun nie — gebruik eerder Aflaai.",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

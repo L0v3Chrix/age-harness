@@ -22,10 +22,7 @@ export function SidebarFooter() {
         {status?.version != null ? `v${status.version}` : "—"}
       </Typography>
 
-      <a
-        href="https://nousresearch.com"
-        target="_blank"
-        rel="noopener noreferrer"
+      <span
         className={cn(
           "font-mondwest text-[0.65rem] tracking-[0.15em] text-midground",
           "transition-opacity hover:opacity-90",
@@ -34,7 +31,7 @@ export function SidebarFooter() {
         style={{ mixBlendMode: "plus-lighter" }}
       >
         {t.app.footer.org}
-      </a>
+      </span>
     </div>
   );
 }

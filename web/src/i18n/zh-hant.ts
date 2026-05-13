@@ -50,12 +50,12 @@ export const zhHant: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "關閉導覽",
     closeModelTools: "關閉模型與工具",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "使用中工作階段：",
     gatewayStatusLabel: "閘道狀態：",
@@ -120,8 +120,8 @@ export const zhHant: Translations = {
     starting: "啟動中",
     startedInBackground: "已於背景啟動 — 請查看日誌以取得進度",
     stopped: "已停止",
-    updateHermes: "更新 Hermes",
-    updatingHermes: "正在更新 Hermes…",
+    updateHermes: "更新 AGE",
+    updatingHermes: "正在更新 AGE…",
     waitingForOutput: "等待輸出…",
   },
 
@@ -266,7 +266,7 @@ export const zhHant: Translations = {
     enableRuntime: "啟用",
     forceReinstall: "強制重新安裝（先刪除既有資料夾）",
     headline:
-      "探索、安裝、啟用並更新 Hermes 外掛（對齊 `hermes plugins` CLI）。",
+      "探索、安裝、啟用並更新 AGE plugins（對齊 `age plugins` CLI）。",
     identifierLabel: "Git 網址或 owner/repo",
     inactive: "未啟用",
     installBtn: "從 Git 安裝",
@@ -530,7 +530,7 @@ export const zhHant: Translations = {
         "「在 X 上分享」會在新分頁中開啟預先填寫的貼文。若想附上 1200×630 的徽章，請先點擊「複製圖片」—— X 允許你直接貼到推文編輯器中。「下載 PNG」會將檔案儲存下來，可在任何地方使用。",
       clipboard_unsupported:
         "此瀏覽器不支援剪貼簿圖片複製 —— 請改用「下載」。",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

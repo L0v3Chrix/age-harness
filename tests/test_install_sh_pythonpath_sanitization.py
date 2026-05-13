@@ -20,6 +20,13 @@ def test_install_script_unsets_pythonpath_and_pythonhome_early() -> None:
     assert 'unset PYTHONHOME' in text
 
 
+def test_install_script_exports_hermes_home_for_python_helpers() -> None:
+    text = INSTALL_SH.read_text()
+
+    # Python helper scripts use os.environ, so --hermes-home must be exported.
+    assert 'export HERMES_HOME' in text
+
+
 def test_hermes_launcher_wrapper_clears_python_env_before_exec() -> None:
     text = INSTALL_SH.read_text()
 

@@ -1,5 +1,5 @@
 /**
- * Hermes Kanban — Dashboard Plugin
+ * AGE Kanban — Dashboard Plugin
  *
  * Board view for the multi-agent collaboration board backed by
  * ~/.hermes/kanban.db. Calls the plugin's backend at /api/plugins/kanban/
@@ -1381,8 +1381,8 @@
       target: "_blank",
       rel: "noopener noreferrer",
       className: "hermes-kanban-docs-link",
-      title: "Open Hermes Kanban docs in a new tab",
-      "aria-label": "Hermes Kanban documentation",
+      title: "Open AGE Kanban docs in a new tab",
+      "aria-label": "AGE Kanban documentation",
     }, "?");
   }
 
@@ -1619,7 +1619,7 @@
         ),
       ),
       h("div", { className: "flex flex-col gap-1",
-                 title: "Filter by assigned Hermes profile. Profiles are the named agent identities that claim and work on tasks." },
+                 title: "Filter by assigned AGE profile. Profiles are the named agent identities that claim and work on tasks." },
         h(Label, { className: "text-xs text-muted-foreground" }, tx(t, "assignee", "Assignee")),
         h(Select, Object.assign({
           value: props.assigneeFilter,
@@ -1743,7 +1743,7 @@
         }, tx(t, "setPriority", "Set priority")),
       ),
       h("div", { className: "hermes-kanban-bulk-reassign",
-                 title: "Reassign selected tasks to a different Hermes profile. Pick a profile (or unassign) and click Apply." },
+                 title: "Reassign selected tasks to a different AGE profile. Pick a profile (or unassign) and click Apply." },
         h(Select, {
           value: assignee,
           onChange: function (e) { setAssignee(e.target.value); },
@@ -2085,7 +2085,7 @@
               }),
             ),
             h("span", { className: "hermes-kanban-card-id",
-                        title: `Task id: ${t.id}. Use this id with kanban_show, /kanban show, or hermes kanban show.` }, t.id),
+                        title: `Task id: ${t.id}. Use this id with kanban_show, /kanban show, or age kanban show.` }, t.id),
             t.warnings && t.warnings.count > 0
               ? h("span", {
                   className: cn(
@@ -2124,7 +2124,7 @@
           h("div", { className: "hermes-kanban-card-row hermes-kanban-card-meta" },
             t.assignee
               ? h("span", { className: "hermes-kanban-assignee",
-                            title: `Assigned to Hermes profile @${t.assignee}` }, "@", t.assignee)
+                            title: `Assigned to AGE profile @${t.assignee}` }, "@", t.assignee)
               : h("span", { className: "hermes-kanban-unassigned",
                             title: "No profile assigned. The dispatcher will pick one from available profiles when the task is Ready." },
                   tx(i18n, "unassigned", "unassigned")),
@@ -2224,8 +2224,8 @@
             : tx(t, "assigneePlaceholder", "assignee"),
           className: "h-7 text-xs flex-1",
           title: props.columnName === "triage"
-            ? "Hermes profile that will spec this task (default: the dispatcher's configured specifier). Leave blank to let the dispatcher pick."
-            : "Hermes profile to assign. Leave blank and the dispatcher will pick from available profiles when the task is Ready.",
+            ? "AGE profile that will spec this task (default: the dispatcher's configured specifier). Leave blank to let the dispatcher pick."
+            : "AGE profile to assign. Leave blank and the dispatcher will pick from available profiles when the task is Ready.",
           style: { textTransform: "none" },
           autoCapitalize: "none",
           autoCorrect: "off",

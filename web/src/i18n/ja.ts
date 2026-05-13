@@ -50,12 +50,12 @@ export const ja: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "ナビゲーションを閉じる",
     closeModelTools: "モデルとツールを閉じる",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "アクティブなセッション:",
     gatewayStatusLabel: "ゲートウェイの状態:",
@@ -120,8 +120,8 @@ export const ja: Translations = {
     starting: "起動中",
     startedInBackground: "バックグラウンドで起動しました — 進行状況はログをご確認ください",
     stopped: "停止",
-    updateHermes: "Hermes を更新",
-    updatingHermes: "Hermes を更新しています…",
+    updateHermes: "AGE を更新",
+    updatingHermes: "AGE を更新しています…",
     waitingForOutput: "出力を待機しています…",
   },
 
@@ -266,7 +266,7 @@ export const ja: Translations = {
     enableRuntime: "有効化",
     forceReinstall: "強制再インストール (既存のフォルダを先に削除)",
     headline:
-      "Hermes プラグインを発見、インストール、有効化、更新します (`hermes plugins` 相当)。",
+      "AGE pluginsを発見、インストール、有効化、更新します (`age plugins` 相当)。",
     identifierLabel: "Git URL または owner/repo",
     inactive: "非アクティブ",
     installBtn: "Git からインストール",
@@ -530,7 +530,7 @@ export const ja: Translations = {
         "「X で共有」は事前入力された投稿を新しいタブで開きます。1200×630 のバッジを添付したい場合は、先に「画像をコピー」を押してください — X では投稿エディタに直接貼り付けられます。「PNG をダウンロード」はファイルとして保存し、どこでも使えるようにします。",
       clipboard_unsupported:
         "このブラウザではクリップボードへの画像コピーがサポートされていません — 代わりに「ダウンロード」をご利用ください。",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

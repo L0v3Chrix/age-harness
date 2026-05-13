@@ -32,6 +32,15 @@ class TestResolveHermesBin:
         )
         assert relaunch_mod.resolve_hermes_bin() == "/usr/bin/hermes"
 
+    def test_prefers_age_path_when_invoked_as_age(self, monkeypatch):
+        monkeypatch.setattr(sys, "argv", ["age"])
+        monkeypatch.setattr(
+            relaunch_mod.shutil,
+            "which",
+            lambda name: f"/usr/local/bin/{name}" if name in {"age", "hermes"} else None,
+        )
+        assert relaunch_mod.resolve_hermes_bin() == "/usr/local/bin/age"
+
     def test_returns_none_when_unresolvable(self, monkeypatch):
         monkeypatch.setattr(sys, "argv", ["-c"])
         monkeypatch.setattr(relaunch_mod.shutil, "which", lambda _name: None)

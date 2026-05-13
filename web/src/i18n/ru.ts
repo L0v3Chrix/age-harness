@@ -50,12 +50,12 @@ export const ru: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "Закрыть навигацию",
     closeModelTools: "Закрыть модель и инструменты",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "Активные сессии:",
     gatewayStatusLabel: "Статус шлюза:",
@@ -120,8 +120,8 @@ export const ru: Translations = {
     starting: "Запуск",
     startedInBackground: "Запущено в фоне — следите за журналами",
     stopped: "Остановлено",
-    updateHermes: "Обновить Hermes",
-    updatingHermes: "Обновление Hermes…",
+    updateHermes: "Обновить AGE",
+    updatingHermes: "Обновление AGE…",
     waitingForOutput: "Ожидание вывода…",
   },
 
@@ -266,7 +266,7 @@ export const ru: Translations = {
     enableRuntime: "Включить",
     forceReinstall: "Принудительная переустановка (сначала удалить существующую папку)",
     headline:
-      "Поиск, установка, включение и обновление плагинов Hermes (аналог `hermes plugins`).",
+      "Поиск, установка, включение и обновление плагинов Hermes (аналог `age plugins`).",
     identifierLabel: "Git URL или owner/repo",
     inactive: "неактивно",
     installBtn: "Установить из Git",
@@ -530,7 +530,7 @@ export const ru: Translations = {
         "«Поделиться в X» открывает пост с заранее заполненным текстом в новой вкладке. Сначала нажмите «Скопировать изображение», если хотите прикрепить значок 1200×630 — X позволяет вставить его прямо в редактор твита. «Скачать PNG» сохраняет файл для использования где угодно.",
       clipboard_unsupported:
         "Копирование изображений в буфер обмена не поддерживается в этом браузере — используйте «Скачать».",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

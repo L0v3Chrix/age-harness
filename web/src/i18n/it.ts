@@ -50,12 +50,12 @@ export const it: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "Chiudi navigazione",
     closeModelTools: "Chiudi modello e strumenti",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "Sessioni attive:",
     gatewayStatusLabel: "Stato gateway:",
@@ -120,8 +120,8 @@ export const it: Translations = {
     starting: "Avvio in corso",
     startedInBackground: "Avviato in background — controlla i log per i progressi",
     stopped: "Arrestato",
-    updateHermes: "Aggiorna Hermes",
-    updatingHermes: "Aggiornamento di Hermes…",
+    updateHermes: "Aggiorna AGE",
+    updatingHermes: "Aggiornamento di AGE…",
     waitingForOutput: "In attesa di output…",
   },
 
@@ -266,7 +266,7 @@ export const it: Translations = {
     enableRuntime: "Abilita",
     forceReinstall: "Forza reinstallazione (elimina prima la cartella esistente)",
     headline:
-      "Scopri, installa, abilita e aggiorna i plugin Hermes (parità con `hermes plugins`).",
+      "Scopri, installa, abilita e aggiorna i plugin Hermes (parità con `age plugins`).",
     identifierLabel: "URL Git o owner/repo",
     inactive: "inattivo",
     installBtn: "Installa da Git",
@@ -529,7 +529,7 @@ export const it: Translations = {
         "Condividi su X apre un post precompilato in una nuova scheda. Clicca prima su Copia immagine se vuoi allegare il badge 1200×630 — X ti permette di incollarlo direttamente nell'editor del tweet. Scarica PNG salva il file per l'uso ovunque.",
       clipboard_unsupported:
         "La copia delle immagini negli appunti non è supportata in questo browser — usa Scarica invece.",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

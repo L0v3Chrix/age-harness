@@ -1,11 +1,11 @@
 # ============================================================================
-# Hermes Agent Installer for Windows
+# AGE by Genesis Labs Installer for Windows
 # ============================================================================
 # Installation script for Windows (PowerShell).
 # Uses uv for fast Python provisioning and package management.
 #
 # Usage:
-#   irm https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.ps1 | iex
+#   gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.ps1 | iex
 #
 # Or download and run with options:
 #   .\install.ps1 -NoVenv -SkipSetup
@@ -26,8 +26,9 @@ $ErrorActionPreference = "Stop"
 # Configuration
 # ============================================================================
 
-$RepoUrlSsh = "git@github.com:NousResearch/hermes-agent.git"
-$RepoUrlHttps = "https://github.com/NousResearch/hermes-agent.git"
+$RepoSlug = "L0v3Chrix/age-harness"
+$RepoUrlSsh = "git@github.com:L0v3Chrix/age-harness.git"
+$RepoUrlHttps = "https://github.com/L0v3Chrix/age-harness.git"
 $PythonVersion = "3.11"
 $NodeVersion = "22"
 
@@ -38,9 +39,9 @@ $NodeVersion = "22"
 function Write-Banner {
     Write-Host ""
     Write-Host "┌─────────────────────────────────────────────────────────┐" -ForegroundColor Magenta
-    Write-Host "│             ⚕ Hermes Agent Installer                    │" -ForegroundColor Magenta
+    Write-Host "│             AGE by Genesis Labs Installer               │" -ForegroundColor Magenta
     Write-Host "├─────────────────────────────────────────────────────────┤" -ForegroundColor Magenta
-    Write-Host "│  An open source AI agent by Nous Research.              │" -ForegroundColor Magenta
+    Write-Host "│  Private onboarding harness for Genesis Labs clients.   │" -ForegroundColor Magenta
     Write-Host "└─────────────────────────────────────────────────────────┘" -ForegroundColor Magenta
     Write-Host ""
 }
@@ -641,6 +642,7 @@ function Install-Repository {
             Write-Info "Existing installation found, updating..."
             Push-Location $InstallDir
             try {
+                git -c windows.appendAtomically=false remote set-url origin $RepoUrlHttps 2>$null
                 git -c windows.appendAtomically=false fetch origin
                 if ($LASTEXITCODE -ne 0) { throw "git fetch failed (exit $LASTEXITCODE)" }
                 git -c windows.appendAtomically=false checkout $Branch
@@ -682,7 +684,21 @@ function Install-Repository {
         $env:GIT_CONFIG_VALUE_0 = "false"
         git config --global windows.appendAtomically false 2>$null
 
+        # Try GitHub CLI first so private-repo installs use the user's gh auth.
+        if (Get-Command gh -ErrorAction SilentlyContinue) {
+            Write-Info "Trying GitHub CLI authenticated clone..."
+            try {
+                gh repo clone $RepoSlug $InstallDir -- --branch $Branch
+                if ($LASTEXITCODE -eq 0) { $cloneSuccess = $true }
+            } catch { }
+            if (-not $cloneSuccess) {
+                if (Test-Path $InstallDir) { Remove-Item -Recurse -Force $InstallDir -ErrorAction SilentlyContinue }
+                Write-Warn "GitHub CLI clone failed, trying git remotes..."
+            }
+        }
+
         # Try SSH first, then HTTPS, with -c flag for atomic write fix
+        if (-not $cloneSuccess) {
         Write-Info "Trying SSH clone..."
         $env:GIT_SSH_COMMAND = "ssh -o BatchMode=yes -o ConnectTimeout=5"
         try {
@@ -690,6 +706,7 @@ function Install-Repository {
             if ($LASTEXITCODE -eq 0) { $cloneSuccess = $true }
         } catch { }
         $env:GIT_SSH_COMMAND = $null
+        }
 
         if (-not $cloneSuccess) {
             if (Test-Path $InstallDir) { Remove-Item -Recurse -Force $InstallDir -ErrorAction SilentlyContinue }
@@ -705,7 +722,7 @@ function Install-Repository {
             if (Test-Path $InstallDir) { Remove-Item -Recurse -Force $InstallDir -ErrorAction SilentlyContinue }
             Write-Warn "Git clone failed — downloading ZIP archive instead..."
             try {
-                $zipUrl = "https://github.com/NousResearch/hermes-agent/archive/refs/heads/$Branch.zip"
+                $zipUrl = "https://github.com/L0v3Chrix/age-harness/archive/refs/heads/$Branch.zip"
                 $zipPath = "$env:TEMP\hermes-agent-$Branch.zip"
                 $extractPath = "$env:TEMP\hermes-agent-extract"
 
@@ -903,7 +920,7 @@ except Exception:
     }
 
     # Verify the dashboard deps specifically — they're the most common thing
-    # users hit and lazy-import errors from `hermes dashboard` are confusing.
+    # users hit and lazy-import errors from `age dashboard` are confusing.
     # If tier 1 failed (the common case), [web] was still picked up by tiers
     # 2-3; only tier 4 leaves you without it.
     $pythonExe = if (-not $NoVenv) { "$InstallDir\venv\Scripts\python.exe" } else { (& $UvCmd python find $PythonVersion) }
@@ -914,11 +931,11 @@ except Exception:
             if ($LASTEXITCODE -eq 0) { $webOk = $true }
         } catch { }
         if (-not $webOk) {
-            Write-Warn "fastapi/uvicorn not importable — `hermes dashboard` will not work."
+            Write-Warn "fastapi/uvicorn not importable — `age dashboard` will not work."
             Write-Info "Attempting targeted install of [web] extra as last resort..."
             & $UvCmd pip install -e ".[web]"
             if ($LASTEXITCODE -eq 0) {
-                Write-Success "[web] extra installed; `hermes dashboard` should now work."
+                Write-Success "[web] extra installed; `age dashboard` should now work."
             } else {
                 Write-Warn "Could not install [web] extra. Run manually: uv pip install --python `"$pythonExe`" `"fastapi>=0.104,<1`" `"uvicorn[standard]>=0.24,<1`""
             }
@@ -945,7 +962,7 @@ except Exception:
 }
 
 function Set-PathVariable {
-    Write-Info "Setting up hermes command..."
+    Write-Info "Setting up age command..."
     
     if ($NoVenv) {
         $hermesBin = "$InstallDir"
@@ -953,8 +970,8 @@ function Set-PathVariable {
         $hermesBin = "$InstallDir\venv\Scripts"
     }
     
-    # Add the venv Scripts dir to user PATH so hermes is globally available
-    # On Windows, the hermes.exe in venv\Scripts\ has the venv Python baked in
+    # Add the venv Scripts dir to user PATH so age/hermes are globally available.
+    # On Windows, the console-script exes in venv\Scripts\ have the venv Python baked in.
     $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
     
     if ($currentPath -notlike "*$hermesBin*") {
@@ -981,7 +998,7 @@ function Set-PathVariable {
     # Update current session
     $env:Path = "$hermesBin;$env:Path"
     
-    Write-Success "hermes command ready"
+    Write-Success "age command ready (hermes compatibility alias is also installed)"
 }
 
 function Copy-ConfigTemplates {
@@ -1100,7 +1117,7 @@ function Install-NodeDeps {
     $npmCmd = Get-Command npm -ErrorAction SilentlyContinue
     if (-not $npmCmd) {
         Write-Warn "npm not found on PATH — skipping Node.js dependencies."
-        Write-Info "Open a new PowerShell window and re-run 'hermes setup tools' later."
+        Write-Info "Open a new PowerShell window and re-run 'age setup tools' later."
         return
     }
     $npmExe = $npmCmd.Source
@@ -1353,7 +1370,7 @@ function Invoke-SetupWizard {
     
     Push-Location $InstallDir
     
-    # Run hermes setup using the venv Python directly (no activation needed)
+    # Run AGE setup using the venv Python directly (no activation needed)
     if (-not $NoVenv) {
         & ".\venv\Scripts\python.exe" -m hermes_cli.main setup
     } else {
@@ -1376,9 +1393,12 @@ function Start-GatewayIfConfigured {
 
     if (-not $hasMessaging) { return }
 
-    $hermesCmd = "$InstallDir\venv\Scripts\hermes.exe"
-    if (-not (Test-Path $hermesCmd)) {
-        $hermesCmd = "hermes"
+    $ageCmd = "$InstallDir\venv\Scripts\age.exe"
+    if (-not (Test-Path $ageCmd)) {
+        $ageCmd = "$InstallDir\venv\Scripts\hermes.exe"
+    }
+    if (-not (Test-Path $ageCmd)) {
+        $ageCmd = "age"
     }
 
     # If WhatsApp is enabled but not yet paired, run foreground for QR scan
@@ -1387,12 +1407,12 @@ function Start-GatewayIfConfigured {
     if ($whatsappEnabled -and -not (Test-Path $whatsappSession)) {
         Write-Host ""
         Write-Info "WhatsApp is enabled but not yet paired."
-        Write-Info "Running 'hermes whatsapp' to pair via QR code..."
+        Write-Info "Running 'age whatsapp' to pair via QR code..."
         Write-Host ""
         $response = Read-Host "Pair WhatsApp now? [Y/n]"
         if ($response -eq "" -or $response -match "^[Yy]") {
             try {
-                & $hermesCmd whatsapp
+                & $ageCmd whatsapp
             } catch {
                 # Expected after pairing completes
             }
@@ -1409,7 +1429,7 @@ function Start-GatewayIfConfigured {
         Write-Info "Starting gateway in background..."
         try {
             $logFile = "$HermesHome\logs\gateway.log"
-            Start-Process -FilePath $hermesCmd -ArgumentList "gateway" `
+            Start-Process -FilePath $ageCmd -ArgumentList "gateway" `
                 -RedirectStandardOutput $logFile `
                 -RedirectStandardError "$HermesHome\logs\gateway-error.log" `
                 -WindowStyle Hidden
@@ -1417,10 +1437,10 @@ function Start-GatewayIfConfigured {
             Write-Info "Logs: $logFile"
             Write-Info "To stop: close the gateway process from Task Manager"
         } catch {
-            Write-Warn "Failed to start gateway. Run manually: hermes gateway"
+            Write-Warn "Failed to start gateway. Run manually: age gateway"
         }
     } else {
-        Write-Info "Skipped. Start the gateway later with: hermes gateway"
+        Write-Info "Skipped. Start the gateway later with: age gateway"
     }
 }
 
@@ -1448,17 +1468,19 @@ function Write-Completion {
     Write-Host ""
     Write-Host "🚀 Commands:" -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "   hermes              " -NoNewline -ForegroundColor Green
+    Write-Host "   age                 " -NoNewline -ForegroundColor Green
     Write-Host "Start chatting"
-    Write-Host "   hermes setup        " -NoNewline -ForegroundColor Green
+    Write-Host "   age setup           " -NoNewline -ForegroundColor Green
     Write-Host "Configure API keys & settings"
-    Write-Host "   hermes config       " -NoNewline -ForegroundColor Green
+    Write-Host "   age dashboard       " -NoNewline -ForegroundColor Green
+    Write-Host "Start local dashboard"
+    Write-Host "   age config          " -NoNewline -ForegroundColor Green
     Write-Host "View/edit configuration"
-    Write-Host "   hermes config edit  " -NoNewline -ForegroundColor Green
+    Write-Host "   age config edit     " -NoNewline -ForegroundColor Green
     Write-Host "Open config in editor"
-    Write-Host "   hermes gateway      " -NoNewline -ForegroundColor Green
+    Write-Host "   age gateway         " -NoNewline -ForegroundColor Green
     Write-Host "Start messaging gateway (Telegram, Discord, etc.)"
-    Write-Host "   hermes update       " -NoNewline -ForegroundColor Green
+    Write-Host "   age update          " -NoNewline -ForegroundColor Green
     Write-Host "Update to latest version"
     Write-Host ""
     
@@ -1539,7 +1561,7 @@ try {
     Write-Err "Installation failed: $_"
     Write-Host ""
     Write-Info "If the error is unclear, try downloading and running the script directly:"
-    Write-Host "  Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.ps1' -OutFile install.ps1" -ForegroundColor Yellow
+    Write-Host "  gh api -H `"Accept: application/vnd.github.raw`" repos/L0v3Chrix/age-harness/contents/scripts/install.ps1 > install.ps1" -ForegroundColor Yellow
     Write-Host "  .\install.ps1" -ForegroundColor Yellow
     Write-Host ""
 }

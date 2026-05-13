@@ -50,12 +50,12 @@ export const fr: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "Fermer la navigation",
     closeModelTools: "Fermer modèle et outils",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "Sessions actives:",
     gatewayStatusLabel: "État de la passerelle:",
@@ -120,8 +120,8 @@ export const fr: Translations = {
     starting: "Démarrage",
     startedInBackground: "Démarré en arrière-plan — consultez les journaux pour la progression",
     stopped: "Arrêté",
-    updateHermes: "Mettre à jour Hermes",
-    updatingHermes: "Mise à jour de Hermes…",
+    updateHermes: "Mettre à jour AGE",
+    updatingHermes: "Mise à jour de AGE…",
     waitingForOutput: "En attente de la sortie…",
   },
 
@@ -266,7 +266,7 @@ export const fr: Translations = {
     enableRuntime: "Activer",
     forceReinstall: "Forcer la réinstallation (supprimer d'abord le dossier existant)",
     headline:
-      "Découvrez, installez, activez et mettez à jour les plugins Hermes (parité avec `hermes plugins`).",
+      "Découvrez, installez, activez et mettez à jour les plugins Hermes (parité avec `age plugins`).",
     identifierLabel: "URL Git ou owner/repo",
     inactive: "inactif",
     installBtn: "Installer depuis Git",
@@ -529,7 +529,7 @@ export const fr: Translations = {
         "Partager sur X ouvre une publication préremplie dans un nouvel onglet. Cliquez d'abord sur Copier l'image si vous voulez joindre le badge 1200×630 — X vous laisse le coller directement dans l'éditeur de tweet. Télécharger le PNG enregistre le fichier pour l'utiliser n'importe où.",
       clipboard_unsupported:
         "La copie d'image dans le presse-papiers n'est pas prise en charge par ce navigateur — utilisez Télécharger à la place.",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

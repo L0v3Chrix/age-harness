@@ -50,12 +50,12 @@ export const ko: Translations = {
   },
 
   app: {
-    brand: "Hermes Agent",
-    brandShort: "HA",
+    brand: "AGE by Genesis Labs",
+    brandShort: "AGE",
     closeNavigation: "내비게이션 닫기",
     closeModelTools: "모델 및 도구 닫기",
     footer: {
-      org: "Nous Research",
+      org: "Genesis Labs",
     },
     activeSessionsLabel: "활성 세션:",
     gatewayStatusLabel: "게이트웨이 상태:",
@@ -120,8 +120,8 @@ export const ko: Translations = {
     starting: "시작 중",
     startedInBackground: "백그라운드에서 시작됨 — 진행 상황은 로그를 확인하세요",
     stopped: "중지됨",
-    updateHermes: "Hermes 업데이트",
-    updatingHermes: "Hermes 업데이트 중…",
+    updateHermes: "AGE 업데이트",
+    updatingHermes: "AGE 업데이트 중…",
     waitingForOutput: "출력 대기 중…",
   },
 
@@ -266,7 +266,7 @@ export const ko: Translations = {
     enableRuntime: "활성화",
     forceReinstall: "강제 재설치 (기존 폴더를 먼저 삭제)",
     headline:
-      "Hermes 플러그인을 검색, 설치, 활성화 및 업데이트합니다 (`hermes plugins` 동등).",
+      "AGE plugins을 검색, 설치, 활성화 및 업데이트합니다 (`age plugins` 동등).",
     identifierLabel: "Git URL 또는 owner/repo",
     inactive: "비활성",
     installBtn: "Git에서 설치",
@@ -530,7 +530,7 @@ export const ko: Translations = {
         "X에 공유를 누르면 새 탭에서 미리 작성된 게시물이 열립니다. 1200×630 배지를 첨부하려면 먼저 이미지 복사를 누르세요 — X 작성기에서 바로 붙여넣을 수 있습니다. PNG 다운로드는 파일을 저장하여 어디서나 사용할 수 있게 합니다.",
       clipboard_unsupported:
         "이 브라우저에서는 클립보드 이미지 복사를 지원하지 않습니다 — 대신 다운로드를 이용하세요.",
-      tweet_text: "Just unlocked {tier_part}\"{name}\" in Hermes Agent ☤",
+      tweet_text: "Just unlocked {tier_part}\"{name}\" in AGE by Genesis Labs",
     },
   },
   kanban: {

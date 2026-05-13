@@ -77,12 +77,24 @@ def _extract_inherited_flags(argv: Sequence[str]) -> list[str]:
     return flags
 
 
+def _command_candidates() -> list[str]:
+    """Return command names to try for self-relaunch, in preference order."""
+    stem = os.path.basename(sys.argv[0]).lower()
+    preferred = "age" if stem in {"age", "age.exe", "age.cmd"} else "hermes"
+    names = [preferred, "age", "hermes"]
+    deduped: list[str] = []
+    for name in names:
+        if name not in deduped:
+            deduped.append(name)
+    return deduped
+
+
 def resolve_hermes_bin() -> Optional[str]:
-    """Find the hermes entry point.
+    """Find the AGE/Hermes entry point.
 
     Priority:
       1. ``sys.argv[0]`` if it resolves to a real executable.
-      2. ``shutil.which("hermes")`` on PATH.
+      2. ``age`` or ``hermes`` on PATH, preserving the invoked command name.
       3. ``None`` → caller should fall back to ``python -m hermes_cli.main``.
 
     Windows note: ``os.access(path, os.X_OK)`` returns True for ``.py`` and
@@ -114,9 +126,10 @@ def resolve_hermes_bin() -> Optional[str]:
                 return abs_path
 
     # PATH lookup
-    path_bin = shutil.which("hermes")
-    if path_bin:
-        return path_bin
+    for command_name in _command_candidates():
+        path_bin = shutil.which(command_name)
+        if path_bin:
+            return path_bin
 
     return None
 
