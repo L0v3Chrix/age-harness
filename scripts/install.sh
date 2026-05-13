@@ -1306,21 +1306,32 @@ setup_path() {
     # Create user-facing shims for the age command and the hermes compatibility alias.
     # We intentionally clear PYTHONPATH/PYTHONHOME here so inherited env vars
     # can't make this launcher import modules from another checkout.
+    #
+    # Write through a temp file and replace the target path.  A plain
+    # `cat > "$command_link_dir/hermes"` follows an existing symlink; on
+    # machines where ~/.local/bin/hermes points into a Hermes venv, that
+    # overwrites the real console-script entry point with a self-recursive
+    # wrapper.  Removing the target first makes the command shim independent
+    # from any previous symlink layout.
+    write_launcher() {
+        local target="$1"
+        local bin_path="$2"
+        local tmp="${target}.tmp.$$"
+
+        cat > "$tmp" <<EOF
+#!/usr/bin/env bash
+unset PYTHONPATH
+unset PYTHONHOME
+exec "$bin_path" "\$@"
+EOF
+        chmod +x "$tmp"
+        rm -f "$target"
+        mv "$tmp" "$target"
+    }
+
     mkdir -p "$command_link_dir"
-    cat > "$command_link_dir/age" <<EOF
-#!/usr/bin/env bash
-unset PYTHONPATH
-unset PYTHONHOME
-exec "$AGE_BIN" "\$@"
-EOF
-    cat > "$command_link_dir/hermes" <<EOF
-#!/usr/bin/env bash
-unset PYTHONPATH
-unset PYTHONHOME
-exec "$HERMES_BIN" "\$@"
-EOF
-    chmod +x "$command_link_dir/age"
-    chmod +x "$command_link_dir/hermes"
+    write_launcher "$command_link_dir/age" "$AGE_BIN"
+    write_launcher "$command_link_dir/hermes" "$HERMES_BIN"
     log_success "Installed age launcher → $command_link_display_dir/age"
     log_success "Installed hermes compatibility launcher → $command_link_display_dir/hermes"
 

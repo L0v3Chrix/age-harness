@@ -31,7 +31,15 @@ def test_hermes_launcher_wrapper_clears_python_env_before_exec() -> None:
     text = INSTALL_SH.read_text()
 
     # Wrapper should clear env and forward args untouched to the venv entrypoint.
-    assert 'cat > "$command_link_dir/hermes" <<EOF' in text
+    assert 'write_launcher "$command_link_dir/hermes" "$HERMES_BIN"' in text
     assert 'unset PYTHONPATH' in text
     assert 'unset PYTHONHOME' in text
-    assert 'exec "$HERMES_BIN" "\\$@"' in text
+    assert 'exec "$bin_path" "\\$@"' in text
+
+
+def test_launcher_install_replaces_existing_symlink_before_write() -> None:
+    text = INSTALL_SH.read_text()
+
+    assert 'local tmp="${target}.tmp.$$"' in text
+    assert 'rm -f "$target"' in text
+    assert 'mv "$tmp" "$target"' in text

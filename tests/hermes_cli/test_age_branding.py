@@ -71,10 +71,16 @@ def test_update_targets_private_age_fork():
 
 def test_dashboard_and_kanban_static_brand_surfaces():
     assert "AGE by Genesis Labs - Dashboard" in (REPO_ROOT / "web" / "index.html").read_text()
+    assert 'href="/favicon.svg"' in (REPO_ROOT / "web" / "index.html").read_text()
 
     app_tsx = (REPO_ROOT / "web" / "src" / "App.tsx").read_text()
     assert "AGE" in app_tsx
     assert "Genesis Labs" in app_tsx
+    assert 'label: "Documentation"' not in app_tsx
+
+    sidebar_footer = (REPO_ROOT / "web" / "src" / "components" / "SidebarFooter.tsx").read_text()
+    assert "United States" in sidebar_footer
+    assert "Texas" in sidebar_footer
 
     en_i18n = (REPO_ROOT / "web" / "src" / "i18n" / "en.ts").read_text()
     assert 'brand: "AGE by Genesis Labs"' in en_i18n
