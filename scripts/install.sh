@@ -69,6 +69,7 @@ ROOT_FHS_LAYOUT=false
 # Options
 USE_VENV=true
 RUN_SETUP=true
+CREATE_HERMES_ALIAS=true
 BRANCH="main"
 
 # Detect non-interactive mode (e.g. curl | bash)
@@ -89,6 +90,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --skip-setup)
             RUN_SETUP=false
+            shift
+            ;;
+        --no-hermes-alias)
+            CREATE_HERMES_ALIAS=false
             shift
             ;;
         --branch)
@@ -112,6 +117,8 @@ while [[ $# -gt 0 ]]; do
             echo "Options:"
             echo "  --no-venv      Don't create virtual environment"
             echo "  --skip-setup   Skip interactive setup wizard"
+            echo "  --no-hermes-alias"
+            echo "                 Only install the age command; do not create a hermes alias"
             echo "  --branch NAME  Git branch to install (default: main)"
             echo "  --dir PATH     Installation directory"
             echo "                   default (non-root):  ~/.hermes/hermes-agent"
@@ -1331,9 +1338,13 @@ EOF
 
     mkdir -p "$command_link_dir"
     write_launcher "$command_link_dir/age" "$AGE_BIN"
-    write_launcher "$command_link_dir/hermes" "$HERMES_BIN"
     log_success "Installed age launcher → $command_link_display_dir/age"
-    log_success "Installed hermes compatibility launcher → $command_link_display_dir/hermes"
+    if [ "$CREATE_HERMES_ALIAS" = true ]; then
+        write_launcher "$command_link_dir/hermes" "$HERMES_BIN"
+        log_success "Installed hermes compatibility launcher → $command_link_display_dir/hermes"
+    else
+        log_info "Skipped hermes compatibility launcher (--no-hermes-alias)"
+    fi
 
     if [ "$DISTRO" = "termux" ]; then
         export PATH="$command_link_dir:$PATH"

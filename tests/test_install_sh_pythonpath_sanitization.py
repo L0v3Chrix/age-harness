@@ -32,6 +32,8 @@ def test_hermes_launcher_wrapper_clears_python_env_before_exec() -> None:
 
     # Wrapper should clear env and forward args untouched to the venv entrypoint.
     assert 'write_launcher "$command_link_dir/hermes" "$HERMES_BIN"' in text
+    assert 'CREATE_HERMES_ALIAS=true' in text
+    assert '--no-hermes-alias)' in text
     assert 'unset PYTHONPATH' in text
     assert 'unset PYTHONHOME' in text
     assert 'exec "$bin_path" "\\$@"' in text

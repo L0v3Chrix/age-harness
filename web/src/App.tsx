@@ -17,6 +17,7 @@ import {
 import {
   Activity,
   BarChart3,
+  BookOpen,
   Clock,
   Code,
   Cpu,
@@ -132,6 +133,12 @@ const BUILTIN_NAV_REST: NavItem[] = [
     labelKey: "sessions",
     label: "Sessions",
     icon: MessageSquare,
+  },
+  {
+    path: "/docs",
+    labelKey: "documentation",
+    label: "AGE Guide",
+    icon: BookOpen,
   },
   {
     path: "/analytics",

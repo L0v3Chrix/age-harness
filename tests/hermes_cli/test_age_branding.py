@@ -76,7 +76,13 @@ def test_dashboard_and_kanban_static_brand_surfaces():
     app_tsx = (REPO_ROOT / "web" / "src" / "App.tsx").read_text()
     assert "AGE" in app_tsx
     assert "Genesis Labs" in app_tsx
-    assert 'label: "Documentation"' not in app_tsx
+    assert 'label: "AGE Guide"' in app_tsx
+    assert 'path: "/docs"' in app_tsx
+
+    docs_page = (REPO_ROOT / "web" / "src" / "pages" / "DocsPage.tsx").read_text()
+    assert "Agent Genesis Engine" in docs_page
+    assert "Codex 5.5" in docs_page
+    assert "hermes-agent.nousresearch.com/docs" not in docs_page
 
     sidebar_footer = (REPO_ROOT / "web" / "src" / "components" / "SidebarFooter.tsx").read_text()
     assert "United States" in sidebar_footer
