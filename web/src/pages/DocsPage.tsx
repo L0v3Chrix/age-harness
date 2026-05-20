@@ -18,8 +18,9 @@ import { Button } from "@nous-research/ui/ui/components/button";
 import { usePageHeader } from "@/contexts/usePageHeader";
 import { PluginSlot } from "@/plugins";
 
-const PREFLIGHT_COMMAND = `/bin/bash -lc '
+const PREFLIGHT_COMMAND = `/bin/zsh -lc '
 set -u
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 echo "AGE by Genesis Labs preflight check"
 echo
 echo "Mac information:"
@@ -62,7 +63,7 @@ echo
 echo "Preflight complete. If every line above says OK, continue to installation."
 '`;
 
-const INSTALL_COMMAND = `caffeinate -dimsu /bin/bash -lc 'gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'`;
+const INSTALL_COMMAND = `caffeinate -dimsu /bin/zsh -lc 'set -e; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; command -v gh >/dev/null || { echo "GitHub CLI is missing. Install it from https://cli.github.com/"; exit 1; }; gh auth status >/dev/null || { echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 1; }; gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'`;
 
 const DEPENDENCY_CHECK_COMMAND = `export HERMES_HOME="$HOME/.age"
 command -v age

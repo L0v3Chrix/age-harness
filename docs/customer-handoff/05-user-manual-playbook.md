@@ -158,7 +158,7 @@ Login with a web browser
 Use this command after GitHub CLI is installed and authenticated:
 
 ```bash
-caffeinate -dimsu /bin/bash -lc 'gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
+caffeinate -dimsu /bin/zsh -lc 'set -e; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; command -v gh >/dev/null || { echo "GitHub CLI is missing. Install it from https://cli.github.com/"; exit 1; }; gh auth status >/dev/null || { echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 1; }; gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
 ```
 
 What each part means:
@@ -167,9 +167,15 @@ What each part means:
 
 Keeps the Mac awake during installation. This is useful for older laptops.
 
-`/bin/bash -lc`
+`/bin/zsh -lc`
 
-Runs the install inside a clean login shell.
+Runs the install inside the Mac's default login shell and picks up the normal
+zsh/Homebrew PATH used by modern macOS Terminal sessions.
+
+`export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"`
+
+Makes GitHub CLI easier to find whether Homebrew is installed in the Apple
+Silicon location or the Intel Mac location.
 
 `gh api`
 
@@ -655,7 +661,7 @@ Do not:
 Install:
 
 ```bash
-caffeinate -dimsu /bin/bash -lc 'gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
+caffeinate -dimsu /bin/zsh -lc 'set -e; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; command -v gh >/dev/null || { echo "GitHub CLI is missing. Install it from https://cli.github.com/"; exit 1; }; gh auth status >/dev/null || { echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 1; }; gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
 ```
 
 Check:

@@ -29,8 +29,9 @@ Customer wording:
 Paste this whole block into Terminal and press Return:
 
 ```bash
-/bin/bash -lc '
+/bin/zsh -lc '
 set -u
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 echo "AGE by Genesis Labs preflight check"
 echo
 echo "Mac information:"
@@ -100,7 +101,7 @@ Login with a web browser
 Paste this whole command into Terminal and press Return:
 
 ```bash
-caffeinate -dimsu /bin/bash -lc 'gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
+caffeinate -dimsu /bin/zsh -lc 'set -e; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; command -v gh >/dev/null || { echo "GitHub CLI is missing. Install it from https://cli.github.com/"; exit 1; }; gh auth status >/dev/null || { echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 1; }; gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
 ```
 
 What this does:
@@ -127,7 +128,7 @@ Do not close Terminal while the command is running.
 After installation finishes, paste this block:
 
 ```bash
-/bin/bash -lc '
+/bin/zsh -lc '
 set -u
 export HERMES_HOME="$HOME/.age"
 export PATH="$HOME/.local/bin:$PATH"

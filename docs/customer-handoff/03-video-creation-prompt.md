@@ -77,10 +77,10 @@ Do not claim the MacBook Air runs the AI model locally. Emphasize cloud models a
 Use the following commands as on-screen text:
 
 Preflight:
-/bin/bash -lc 'set -u; sw_vers; uname -m; df -h "$HOME" | tail -n 1; xcode-select -p >/dev/null 2>&1 && echo "OK: Apple command line tools are present." || xcode-select --install; command -v gh >/dev/null 2>&1 && echo "OK: GitHub CLI found." || echo "Install GitHub CLI from https://cli.github.com/"; gh auth status >/dev/null 2>&1 && echo "OK: GitHub CLI is authenticated." || echo "Run: gh auth login"'
+/bin/zsh -lc 'set -u; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; sw_vers; uname -m; df -h "$HOME" | tail -n 1; xcode-select -p >/dev/null 2>&1 && echo "OK: Apple command line tools are present." || xcode-select --install; command -v gh >/dev/null 2>&1 && echo "OK: GitHub CLI found." || echo "Install GitHub CLI from https://cli.github.com/"; gh auth status >/dev/null 2>&1 && echo "OK: GitHub CLI is authenticated." || echo "Run: gh auth login"'
 
 Install:
-caffeinate -dimsu /bin/bash -lc 'gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
+caffeinate -dimsu /bin/zsh -lc 'set -e; export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"; command -v gh >/dev/null || { echo "GitHub CLI is missing. Install it from https://cli.github.com/"; exit 1; }; gh auth status >/dev/null || { echo "GitHub CLI is not authenticated. Run: gh auth login"; exit 1; }; gh api -H "Accept: application/vnd.github.raw" repos/L0v3Chrix/age-harness/contents/scripts/install.sh | bash -s -- --skip-setup --no-hermes-alias --dir "$HOME/.age/age-harness" --hermes-home "$HOME/.age"'
 
 Dependency check:
 export HERMES_HOME="$HOME/.age"
